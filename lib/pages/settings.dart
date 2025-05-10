@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 
-class MapPage extends StatelessWidget {
-  const MapPage({super.key});
+class SettingsPage extends StatelessWidget {
+  const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false, // Prevents the default back arrow
-        title: Text('Map Page'),
+        title: const Text('Settings Page'),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.arrow_forward), // Back arrow icon
-            onPressed: () {
-              Navigator.pop(context); // Navigate back to the HomePage
-            },
-          ),
-        ],
+        leading: IconButton( // Moved the arrow to the left side
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Center(
         child: Image.asset('assets/images/monkey.png'),
