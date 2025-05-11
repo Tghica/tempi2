@@ -11,6 +11,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String _selectedOption = 'Select';
+  int _lastPressedButton = -1; // -1 means no button is pressed initially
 
   @override
   Widget build(BuildContext context) {
@@ -117,6 +118,94 @@ class _HomePageState extends State<HomePage> {
                 MaterialPageRoute(builder: (context) => const SettingsPage()), // Updated to SettingsPage
               );
             },
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: Center(
+              child: Text(
+                'Main Content Here',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          Stack(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: const Size.fromHeight(80), // Set button height to 80
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.zero, // Remove button border radius
+                        ),
+                        backgroundColor: _lastPressedButton == 1
+                            ? Colors.blue // Highlight Practice button
+                            : Colors.white, // Default color
+                        foregroundColor: _lastPressedButton == 1
+                            ? Colors.white // Text color for highlighted button
+                            : Colors.black, // Default text color
+                        elevation: 0, // Remove button shadow
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _lastPressedButton = 1; // Track Practice button as pressed
+                        });
+                        log('Practice button pressed');
+                      },
+                      child: const Text('Practice'),
+                    ),
+                  ),
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: const Size.fromHeight(80), // Set button height to 80
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.zero, // Remove button border radius
+                        ),
+                        backgroundColor: _lastPressedButton == 2
+                            ? Colors.green // Highlight Documentation button
+                            : Colors.white, // Default color
+                        foregroundColor: _lastPressedButton == 2
+                            ? Colors.white // Text color for highlighted button
+                            : Colors.black, // Default text color
+                        elevation: 0, // Remove button shadow
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _lastPressedButton = 2; // Track Documentation button as pressed
+                        });
+                        log('Documentation button pressed');
+                      },
+                      child: const Text('Documentation'),
+                    ),
+                  ),
+                ],
+              ),
+              // Vertical line in the middle
+              Positioned(
+                left: MediaQuery.of(context).size.width / 2 - 0.5, // Center the line
+                bottom: 0, // Align to the bottom
+                child: Container(
+                  width: 1, // Line width
+                  height: 80, // Line height
+                  color: Colors.black, // Line color
+                ),
+              ),
+              // Horizontal line dividing buttons from the rest
+              Positioned(
+                left: 0, // Start from the left edge
+                right: 0, // Extend to the right edge
+                bottom: 78, // Position 80 pixels from the bottom
+                child: Container(
+                  height: 2, // Line height
+                  color: Colors.black, // Line color
+                ),
+              ),
+            ],
           ),
         ],
       ),
