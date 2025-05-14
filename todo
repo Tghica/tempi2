@@ -3,8 +3,10 @@ Aplicatie targeturi
 Partea tehnica:
 - [ ] sa ii instalez si lui popi flutter
 - [ ] sa ii dau permisiuni lui popi sa intre pe github
-- [ ] sa fac pagini diferite pentru c++ si html de practice
-- [ ] sa fac pagini diferite pentru c++ si html de documentatie
+- [x] sa fac pagini diferite pentru c++ de practice
+- [ ] sa fac pagini diferite pentru html de practice
+- [ ] sa fac pagini diferite pentru html de documentatie
+- [x] sa fac pagini diferite pentru c++ de documentatie
 - [ ] sa ma asigur ca totate proprietatile de pe o pagina trec corect pe cealalta
 - [ ] sa umplem pagina de settings cu 3 optiuni
 - [ ] Pe aceasi pagina la mijloc sa fie ceva interactiv unde poti da scroll
@@ -19,17 +21,7 @@ Partea tehnica:
 - [x] sa imi pun proiectul pe github
 
 Partea sociala:
-- [ ] sa aflam unde mergem pt questionar
-- [ ] sa pregatim excursia in iasi
 - [x] sa il pun pe mihnea sa gaseasca unde sa mergem pt questionar
-- [ ] sa ii dau permisiuni lui popi sa intre pe github
-- [ ] sa fac pagini diferite pentru c++ si html de practice
-- [ ] sa fac pagini diferite pentru c++ si html de documentatie
-- [ ] sa ma asigur ca totate proprietatile de pe o pagina trec corect pe cealalta
-- [ ] sa umplem pagina de settings cu 3 optiuni
-- [ ] Pe aceasi pagina la mijloc sa fie ceva interactiv unde poti da scroll
-- [ ] sa apara formele care sunt cursuri sau nivele
-- [ ] sa adaug scris sub ele si poate o linie sa le lege
 - [ ] sa facem intrebarile
 - [ ] sa aflam unde mergem pt questionar
 - [ ] sa pregatim excursia in iasi
