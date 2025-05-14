@@ -8,8 +8,10 @@ Partea tehnica:
 - [ ] sa ma asigur ca totate proprietatile de pe o pagina trec corect pe cealalta
 - [ ] sa umplem pagina de settings cu 3 optiuni
 - [ ] Pe aceasi pagina la mijloc sa fie ceva interactiv unde poti da scroll
-- [ ] sa apara formele care sunt cursuri sau nivele
-- [ ] sa adaug scris sub ele si poate o linie sa le lege
+- [ ] sa adaug cursurile intr-un vector
+- [ ] sa fac sa apara formele pentru fiecare curs
+- [ ] sa adaug scris sub ele
+- [ ] sa adaug o linie sa le lege
 - [ ] sa facem intrebarile
 - [x] In partea de jos sa mai adaug un meniu cu training si setari
 - [x] sa fac un meniu sus stanga in care sa se poata alege limbajul, o lista

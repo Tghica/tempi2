@@ -1,26 +1,25 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fitness/pages/settings.dart'; // Ensure this points to the correct file
-import 'package:fitness/pages/c++/training_c++.dart'; // Ensure this points to the correct file
-import 'package:fitness/pages/c++/documentation_c++.dart'; // Ensure this points to the correct file
+import 'package:fitness/pages/c++/documentation_c++.dart'; // Import the Documentation page
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class TrainingCppPage extends StatefulWidget {
+  const TrainingCppPage({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _TrainingCppPageState createState() => _TrainingCppPageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  String _selectedOption = 'Select';
-  int _lastPressedButton = -1; // -1 means no button is pressed initially
+class _TrainingCppPageState extends State<TrainingCppPage> {
+  String _selectedOption = 'C++'; // Default to C++
+  int _lastPressedButton = 1; // Default to Practice button being active
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Tempi',
+          'C++ Training',
           style: TextStyle(
             color: Colors.black,
             fontSize: 18,
@@ -76,15 +75,6 @@ class _HomePageState extends State<HomePage> {
                 if (selected != null) {
                   setState(() => _selectedOption = selected);
                   log('$selected selected');
-
-                  // Navigate to the training_c++.dart page if "C++" is selected
-                  if (selected == 'C++') {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const TrainingCppPage()),
-                    );
-                  }
                 }
               },
               child: Container(
@@ -126,7 +116,7 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const SettingsPage()), // Updated to SettingsPage
+                MaterialPageRoute(builder: (context) => const SettingsPage()), // Navigate to SettingsPage
               );
             },
           ),
@@ -186,10 +176,12 @@ class _HomePageState extends State<HomePage> {
                         elevation: 0, // Remove button shadow
                       ),
                       onPressed: () {
-                        setState(() {
-                          _lastPressedButton = 2; // Track Documentation button as pressed
-                        });
-                        log('Documentation button pressed');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const DocumentationCppPage()), // Navigate to Documentation page
+                        );
                       },
                       child: const Text('Documentation'),
                     ),
