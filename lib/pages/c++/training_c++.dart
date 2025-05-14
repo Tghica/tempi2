@@ -1,4 +1,4 @@
-import 'dart:developer';
+import 'dart:math'; // Import math library for sin function
 import 'package:flutter/material.dart';
 import 'package:fitness/pages/settings.dart'; // Ensure this points to the correct file
 import 'package:fitness/pages/c++/documentation_c++.dart'; // Import the Documentation page
@@ -11,8 +11,20 @@ class TrainingCppPage extends StatefulWidget {
 }
 
 class _TrainingCppPageState extends State<TrainingCppPage> {
-  String _selectedOption = 'C++'; // Default to C++
-  int _lastPressedButton = 1; // Default to Practice button being active
+  final List<String> cppConcepts = [
+    "Pointers",
+    "References",
+    "Classes and Objects",
+    "Inheritance",
+    "Polymorphism",
+    "Templates",
+    "STL",
+    "Smart Pointers",
+    "Multithreading",
+    "Hash"
+  ];
+
+  int _lastPressedButton = -1; // -1 means no button is pressed initially
 
   @override
   Widget build(BuildContext context) {
@@ -29,85 +41,10 @@ class _TrainingCppPageState extends State<TrainingCppPage> {
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0.0,
-        leading: Builder(
-          builder: (context) {
-            return GestureDetector(
-              onTapDown: (TapDownDetails details) async {
-                final RenderBox box = context.findRenderObject() as RenderBox;
-                final Offset offset = box.localToGlobal(Offset.zero);
-                final selected = await showMenu<String>(
-                  context: context,
-                  position: RelativeRect.fromLTRB(
-                    offset.dx,
-                    offset.dy + kToolbarHeight,
-                    offset.dx + 1,
-                    offset.dy,
-                  ),
-                  items: [
-                    const PopupMenuItem(
-                      value: 'C++',
-                      child: Row(
-                        children: [
-                          Icon(Icons.code, color: Colors.blue),
-                          SizedBox(width: 10),
-                          Text('C++',
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                    ),
-                    const PopupMenuItem(
-                      value: 'HTML',
-                      child: Row(
-                        children: [
-                          Icon(Icons.web, color: Colors.green),
-                          SizedBox(width: 10),
-                          Text('HTML',
-                              style: TextStyle(
-                                  color: Colors.green,
-                                  fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                    ),
-                  ],
-                );
-                if (selected != null) {
-                  setState(() => _selectedOption = selected);
-                  log('$selected selected');
-                }
-              },
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (_selectedOption == 'C++')
-                      const Icon(Icons.code, color: Colors.blue)
-                    else if (_selectedOption == 'HTML')
-                      const Icon(Icons.web, color: Colors.green)
-                    else
-                      const Icon(Icons.language, color: Colors.grey),
-                    const SizedBox(width: 4),
-                    Flexible(
-                      child: Text(
-                        _selectedOption,
-                        style: TextStyle(
-                          color: _selectedOption == 'C++'
-                              ? Colors.blue
-                              : _selectedOption == 'HTML'
-                                  ? Colors.green
-                                  : Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            );
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context); // Navigate back to the previous page
           },
         ),
         actions: [
@@ -125,13 +62,48 @@ class _TrainingCppPageState extends State<TrainingCppPage> {
       body: Column(
         children: [
           Expanded(
-            child: Center(
-              child: Text(
-                'Main Content Here',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            child: SingleChildScrollView(
+              child: Stack(
+                children: [
+                  // Add the CustomPaint widget to draw the line
+                  CustomPaint(
+                    size: Size(double.infinity, cppConcepts.length * 90.0),
+                    painter: LinePainter(cppConcepts.length),
+                  ),
+                  ...cppConcepts.asMap().entries.map((entry) {
+                    int index = entry.key;
+                    String concept = entry.value;
+
+                    // Calculate position dynamically
+                    const double coefficient = 150; // Coefficient for horizontal offset
+                    final double y = index * 90.0; // Vertical offset is always 90
+                    final double x = sin(y * pi / 180) * coefficient + 150; // Horizontal offset
+
+                    return Positioned(
+                      left: x,
+                      top: y,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 50,
+                            height: 50,
+                            color: Colors.blue, // Change color to match C++ theme
+                          ),
+                          const SizedBox(height: 8), // Space between square and text
+                          Text(
+                            concept,
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                ],
               ),
             ),
           ),
+          // Add buttons at the bottom
           Stack(
             children: [
               Row(
@@ -143,21 +115,21 @@ class _TrainingCppPageState extends State<TrainingCppPage> {
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.zero, // Remove button border radius
                         ),
-                        backgroundColor: _lastPressedButton == 1
-                            ? Colors.blue // Highlight Practice button
+                        backgroundColor: _lastPressedButton == 2
+                            ? Colors.green // Highlight Start Training button
                             : Colors.white, // Default color
-                        foregroundColor: _lastPressedButton == 1
+                        foregroundColor: _lastPressedButton == 2
                             ? Colors.white // Text color for highlighted button
                             : Colors.black, // Default text color
                         elevation: 0, // Remove button shadow
                       ),
                       onPressed: () {
                         setState(() {
-                          _lastPressedButton = 1; // Track Practice button as pressed
+                          _lastPressedButton = 2; // Track Start Training button as pressed
                         });
-                        log('Practice button pressed');
+                        // Add functionality for Start Training button here
                       },
-                      child: const Text('Practice'),
+                      child: const Text('Start Training'),
                     ),
                   ),
                   Expanded(
@@ -167,20 +139,23 @@ class _TrainingCppPageState extends State<TrainingCppPage> {
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.zero, // Remove button border radius
                         ),
-                        backgroundColor: _lastPressedButton == 2
-                            ? Colors.green // Highlight Documentation button
+                        backgroundColor: _lastPressedButton == 1
+                            ? Colors.blue // Highlight Documentation button
                             : Colors.white, // Default color
-                        foregroundColor: _lastPressedButton == 2
+                        foregroundColor: _lastPressedButton == 1
                             ? Colors.white // Text color for highlighted button
                             : Colors.black, // Default text color
                         elevation: 0, // Remove button shadow
                       ),
                       onPressed: () {
+                        setState(() {
+                          _lastPressedButton = 1; // Track Documentation button as pressed
+                        });
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  const DocumentationCppPage()), // Navigate to Documentation page
+                                  const DocumentationCppPage()), // Navigate to Documentation
                         );
                       },
                       child: const Text('Documentation'),
@@ -213,5 +188,44 @@ class _TrainingCppPageState extends State<TrainingCppPage> {
         ],
       ),
     );
+  }
+}
+
+class LinePainter extends CustomPainter {
+  final int itemCount;
+
+  LinePainter(this.itemCount);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.blue // Change color to match C++ theme
+      ..strokeWidth = 2
+      ..style = PaintingStyle.stroke;
+
+    const double coefficient = 150; // Coefficient for horizontal offset
+    final Path path = Path();
+    const double xSquareOffset = 40; // so it matches horizontally the square
+    const double ySquareOffset = 30; // so it matches vertically the square
+    for (int i = 0; i < itemCount * 90 - 90; i++) {
+      double y = 1.0 * i; // Vertical offset
+      double x = sin(y * pi / 180) * coefficient + 150; // Horizontal offset
+
+      y += ySquareOffset; // Adjust y position for square
+      x += xSquareOffset; // Adjust x position for square
+
+      if (i == 0) {
+        path.moveTo(x, y); // Move to the first point
+      } else {
+        path.lineTo(x, y); // Draw a line to the next point
+      }
+    }
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
   }
 }
