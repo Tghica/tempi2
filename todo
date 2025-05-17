@@ -2,20 +2,21 @@ Aplicatie targeturi
 
 Partea tehnica:
 - [ ] FIX THE SHIT THAT DOESNT WORK (paginile se muta stramb si butonul de back nu merge cum trebuire)
-- [x] sa ii instalez si lui popi flutter
-- [x] sa ii dau permisiuni lui popi sa intre pe github
+- [ ] sa ii instalez si lui popi flutter
+- [ ] sa ii dau permisiuni lui popi sa intre pe github
 - [x] sa fac pagini diferite pentru c++ de practice
 - [ ] sa fac pagini diferite pentru html de practice
 - [ ] sa fac pagini diferite pentru html de documentatie
-- [x] sa fac pagini diferite pentru c++ de documentatie
 - [ ] sa ma asigur ca totate proprietatile de pe o pagina trec corect pe cealalta
 - [ ] sa umplem pagina de settings cu 3 optiuni
+- [ ] sa fac sa apara formele pentru fiecare curs
+- [ ] sa schimbam home pageul in ceva mai logic
+- [x] sa fac pagini diferite pentru c++ de practice
+- [x] sa fac pagini diferite pentru c++ de documentatie
 - [x] Pe aceasi pagina la mijloc sa fie ceva interactiv unde poti da scroll
 - [x] sa adaug cursurile intr-un vector
-- [ ] sa fac sa apara formele pentru fiecare curs
 - [x] sa adaug scris sub ele
 - [x] sa adaug o linie sa le lege
-- [ ] sa facem intrebarile
 - [x] In partea de jos sa mai adaug un meniu cu training si setari
 - [x] sa fac un meniu sus stanga in care sa se poata alege limbajul, o lista
 - [x] De facut targeturile, implementat primul lucru de pe lista 
