@@ -2,8 +2,8 @@ Aplicatie targeturi
 
 Partea tehnica:
 - [ ] FIX THE SHIT THAT DOESNT WORK (paginile se muta stramb si butonul de back nu merge cum trebuire)
-- [ ] sa ii instalez si lui popi flutter
-- [ ] sa ii dau permisiuni lui popi sa intre pe github
+- [x] sa ii instalez si lui popi flutter
+- [x] sa ii dau permisiuni lui popi sa intre pe github
 - [x] sa fac pagini diferite pentru c++ de practice
 - [ ] sa fac pagini diferite pentru html de practice
 - [ ] sa fac pagini diferite pentru html de documentatie
