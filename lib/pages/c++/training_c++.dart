@@ -24,7 +24,20 @@ class _TrainingCppPageState extends State<TrainingCppPage> {
     "Hash"
   ];
 
+  String _selectedOption = 'C++'; // Default to C++
   int _lastPressedButton = -1; // -1 means no button is pressed initially
+
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      if (ModalRoute.of(context)?.settings.name == '/training_cpp') {
+        setState(() {
+          _lastPressedButton = 1;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +54,84 @@ class _TrainingCppPageState extends State<TrainingCppPage> {
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0.0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context); // Navigate back to the previous page
+        leading: Builder(
+          builder: (context) {
+            return GestureDetector(
+              onTapDown: (TapDownDetails details) async {
+                final RenderBox box = context.findRenderObject() as RenderBox;
+                final Offset offset = box.localToGlobal(Offset.zero);
+                final selected = await showMenu<String>(
+                  context: context,
+                  position: RelativeRect.fromLTRB(
+                    offset.dx,
+                    offset.dy + kToolbarHeight,
+                    offset.dx + 1,
+                    offset.dy,
+                  ),
+                  items: [
+                    const PopupMenuItem(
+                      value: 'C++',
+                      child: Row(
+                        children: [
+                          Icon(Icons.code, color: Colors.blue),
+                          SizedBox(width: 10),
+                          Text('C++',
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                    ),
+                    const PopupMenuItem(
+                      value: 'HTML',
+                      child: Row(
+                        children: [
+                          Icon(Icons.web, color: Colors.green),
+                          SizedBox(width: 10),
+                          Text('HTML',
+                              style: TextStyle(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+                if (selected != null) {
+                  setState(() => _selectedOption = selected);
+                }
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (_selectedOption == 'C++')
+                      const Icon(Icons.code, color: Colors.blue)
+                    else if (_selectedOption == 'HTML')
+                      const Icon(Icons.web, color: Colors.green)
+                    else
+                      const Icon(Icons.language, color: Colors.grey),
+                    const SizedBox(width: 4),
+                    Flexible(
+                      child: Text(
+                        _selectedOption,
+                        style: TextStyle(
+                          color: _selectedOption == 'C++'
+                              ? Colors.blue
+                              : _selectedOption == 'HTML'
+                                  ? Colors.green
+                                  : Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            );
           },
         ),
         actions: [
@@ -115,21 +202,16 @@ class _TrainingCppPageState extends State<TrainingCppPage> {
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.zero, // Remove button border radius
                         ),
-                        backgroundColor: _lastPressedButton == 2
-                            ? Colors.green // Highlight Start Training button
-                            : Colors.white, // Default color
-                        foregroundColor: _lastPressedButton == 2
-                            ? Colors.white // Text color for highlighted button
-                            : Colors.black, // Default text color
+                        backgroundColor: Colors.blue, // Always blue
+                        foregroundColor: Colors.white, // Text color for better contrast
                         elevation: 0, // Remove button shadow
                       ),
                       onPressed: () {
                         setState(() {
-                          _lastPressedButton = 2; // Track Start Training button as pressed
+                          _lastPressedButton = 1; // Track Practice button as pressed
                         });
-                        // Add functionality for Start Training button here
                       },
-                      child: const Text('Start Training'),
+                      child: const Text('Practice'),
                     ),
                   ),
                   Expanded(
@@ -139,17 +221,17 @@ class _TrainingCppPageState extends State<TrainingCppPage> {
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.zero, // Remove button border radius
                         ),
-                        backgroundColor: _lastPressedButton == 1
-                            ? Colors.blue // Highlight Documentation button
+                        backgroundColor: _lastPressedButton == 2
+                            ? Colors.green // Highlight Documentation button
                             : Colors.white, // Default color
-                        foregroundColor: _lastPressedButton == 1
+                        foregroundColor: _lastPressedButton == 2
                             ? Colors.white // Text color for highlighted button
                             : Colors.black, // Default text color
                         elevation: 0, // Remove button shadow
                       ),
                       onPressed: () {
                         setState(() {
-                          _lastPressedButton = 1; // Track Documentation button as pressed
+                          _lastPressedButton = 2; // Track Documentation button as pressed
                         });
                         Navigator.push(
                           context,

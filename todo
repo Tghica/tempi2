@@ -5,13 +5,22 @@ Partea tehnica:
 - [ ] sa facem homepage-ul sa aibe un meniu in care sa alegi limbajul
 - [ ] sa apara titlute pe pagina de home
 - [ ] si sa aiba buton de setari in dreapta sus
-- [ ] FIX THE SHIT THAT DOESNT WORK (paginile se muta stramb si butonul de back nu merge cum trebuire)
+- [ ] sa facem ca practice-ul sa fie in stanga si documentationul sa fie in dreapta (isi da slide prost acum)
+- [ ] sa facem un model pentru pagina de documentatie de linkuri sau informatii 
+- [ ] sa avem cel putin 3 cursuri pe pagina de documentatie
+- [ ] sa umplem pagina de documentatie
 - [ ] sa fac pagini diferite pentru html de practice
 - [ ] sa fac pagini diferite pentru html de documentatie
 - [ ] sa ma asigur ca totate proprietatile de pe o pagina trec corect pe cealalta
 - [ ] sa umplem pagina de settings cu 3 optiuni
 - [ ] sa fac sa apara formele pentru fiecare curs
-- [ ] sa schimbam home pageul in ceva mai logic
+
+!!!!!!!! BIG PROBLEME !!!!!!!!!
+- [ ] sa terminam un curs (NEEEDS EXPANDING)
+- [ ] sa facem ca cursurile de la training chiar sa duca undeva
+
+ITS DONE
+- [x] FIX THE SHIT THAT DOESNT WORK (paginile se muta stramb si butonul de back nu merge cum trebuire)
 - [x] sa ii instalez si lui popi flutter
 - [x] sa ii dau permisiuni lui popi sa intre pe github
 - [x] sa fac pagini diferite pentru c++ de practice
@@ -28,6 +37,7 @@ Partea tehnica:
 
 Partea sociala:
 - [x] sa il pun pe mihnea sa gaseasca unde sa mergem pt questionar
+- [ ] sa il fut in gura pe mihnea ca nu face nimic
 - [ ] sa facem intrebarile
 - [ ] sa aflam unde mergem pt questionar
 - [ ] sa pregatim excursia in iasi

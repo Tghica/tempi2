@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fitness/pages/settings.dart'; // Ensure this points to the correct file
 import 'package:fitness/pages/c++/training_c++.dart'; // Ensure this points to the correct file
-import 'package:fitness/pages/c++/documentation_c++.dart'; // Ensure this points to the correct file
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
