@@ -1,16 +1,20 @@
 Aplicatie targeturi
 
 Partea tehnica:
+
+- [ ] sa facem homepage-ul sa aibe un meniu in care sa alegi limbajul
+- [ ] sa apara titlute pe pagina de home
+- [ ] si sa aiba buton de setari in dreapta sus
 - [ ] FIX THE SHIT THAT DOESNT WORK (paginile se muta stramb si butonul de back nu merge cum trebuire)
-- [x] sa ii instalez si lui popi flutter
-- [x] sa ii dau permisiuni lui popi sa intre pe github
-- [x] sa fac pagini diferite pentru c++ de practice
 - [ ] sa fac pagini diferite pentru html de practice
 - [ ] sa fac pagini diferite pentru html de documentatie
 - [ ] sa ma asigur ca totate proprietatile de pe o pagina trec corect pe cealalta
 - [ ] sa umplem pagina de settings cu 3 optiuni
 - [ ] sa fac sa apara formele pentru fiecare curs
 - [ ] sa schimbam home pageul in ceva mai logic
+- [x] sa ii instalez si lui popi flutter
+- [x] sa ii dau permisiuni lui popi sa intre pe github
+- [x] sa fac pagini diferite pentru c++ de practice
 - [x] sa fac pagini diferite pentru c++ de practice
 - [x] sa fac pagini diferite pentru c++ de documentatie
 - [x] Pe aceasi pagina la mijloc sa fie ceva interactiv unde poti da scroll
