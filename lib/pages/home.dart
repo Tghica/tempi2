@@ -148,25 +148,27 @@ class _HomePageState extends State<HomePage> {
                   Expanded(
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        fixedSize: const Size.fromHeight(80), // Set button height to 80
+                        fixedSize: const Size.fromHeight(80),
                         shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.zero, // Remove button border radius
+                          borderRadius: BorderRadius.zero,
                         ),
-                        backgroundColor: _lastPressedButton == 1
-                            ? Colors.blue // Highlight Practice button
-                            : Colors.white, // Default color
-                        foregroundColor: _lastPressedButton == 1
-                            ? Colors.white // Text color for highlighted button
-                            : Colors.black, // Default text color
-                        elevation: 0, // Remove button shadow
+                        backgroundColor: _lastPressedButton == 1 ? Colors.blue : Colors.white,
+                        foregroundColor: _lastPressedButton == 1 ? Colors.white : Colors.black,
+                        elevation: 0,
                       ),
                       onPressed: () {
                         setState(() {
-                          _lastPressedButton = 1; // Track Practice button as pressed
+                          _lastPressedButton = 1;
                         });
-                        log('Practice button pressed');
+                        log('C++ Training button pressed');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const TrainingCppPage(),
+                          ),
+                        );
                       },
-                      child: const Text('Practice'),
+                      child: const Text('C++ Training'),
                     ),
                   ),
                   Expanded(
