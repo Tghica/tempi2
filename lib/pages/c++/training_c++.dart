@@ -2,6 +2,8 @@ import 'dart:math'; // Import math library for sin function
 import 'package:flutter/material.dart';
 import 'package:fitness/pages/settings.dart'; // Ensure this points to the correct file
 import 'package:fitness/pages/c++/documentation_c++.dart'; // Import the Documentation page
+import 'package:fitness/pages/c++/lessons/introduction.dart';
+// Add more as you create them
 
 class TrainingCppPage extends StatefulWidget {
   const TrainingCppPage({super.key});
@@ -11,17 +13,35 @@ class TrainingCppPage extends StatefulWidget {
 }
 
 class _TrainingCppPageState extends State<TrainingCppPage> {
-  final List<String> cppConcepts = [
-    "Pointers",
-    "References",
-    "Classes and Objects",
-    "Inheritance",
-    "Polymorphism",
-    "Templates",
-    "STL",
-    "Smart Pointers",
-    "Multithreading",
-    "Hash"
+  final List<String> cppLessons = [ // Renamed from cppConcepts to cppLessons
+    "Introduction",
+    "Lesson",
+    "Lesson",
+    "Loops",
+    "Lesson",
+    "Lesson",
+    "Competition",
+    "Vector",
+    "Lesson",
+    "Lesson",
+    "Competition",
+  ];
+
+  // New: List of lesson page routes or widget constructors (null if not implemented)
+  final List<Widget?> cppLessonPages = [
+    // These should be replaced with the actual lesson widgets you create
+    // Example: IntroductionLessonPage(), LoopsLessonPage(), etc.
+    IntroductionLessonPage(), // for "Introduction"
+    null, // for "Lesson"
+    null, // for "Lesson"
+    null, // for "Loops"
+    null, // for "Lesson"
+    null, // for "Lesson"
+    null, // for "Competition"
+    null, // for "Vector"
+    null, // for "Lesson"
+    null, // for "Lesson"
+    null, // for "Competition"
   ];
 
   String _selectedOption = 'C++'; // Default to C++
@@ -154,10 +174,10 @@ class _TrainingCppPageState extends State<TrainingCppPage> {
                 children: [
                   // Add the CustomPaint widget to draw the line
                   CustomPaint(
-                    size: Size(double.infinity, cppConcepts.length * 90.0),
-                    painter: LinePainter(cppConcepts.length),
+                    size: Size(double.infinity, cppLessons.length * 90.0),
+                    painter: LinePainter(cppLessons.length),
                   ),
-                  ...cppConcepts.asMap().entries.map((entry) {
+                  ...cppLessons.asMap().entries.map((entry) {
                     int index = entry.key;
                     String concept = entry.value;
 
@@ -166,23 +186,51 @@ class _TrainingCppPageState extends State<TrainingCppPage> {
                     final double y = index * 90.0; // Vertical offset is always 90
                     final double x = sin(y * pi / 180) * coefficient + 150; // Horizontal offset
 
+                    Color squareColor;
+                    IconData? icon;
+                    if (concept == "Lesson") {
+                      squareColor = Colors.grey;
+                      icon = Icons.book;
+                    } else if (concept == "Competition") {
+                      squareColor = Colors.orange;
+                      icon = Icons.emoji_events;
+                    } else {
+                      squareColor = Colors.blue;
+                      icon = Icons.code;
+                    }
+
                     return Positioned(
                       left: x,
                       top: y,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 50,
-                            height: 50,
-                            color: Colors.blue, // Change color to match C++ theme
-                          ),
-                          const SizedBox(height: 8), // Space between square and text
-                          Text(
-                            concept,
-                            style: const TextStyle(fontSize: 16),
-                          ),
-                        ],
+                      child: GestureDetector(
+                        onTap: () {
+                          final page = cppLessonPages[index];
+                          if (page != null) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => page),
+                            );
+                          }
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: squareColor,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Icon(icon, color: Colors.white, size: 30),
+                            ),
+                            const SizedBox(height: 8), // Space between square and text
+                            Text(
+                              concept,
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   }).toList(),
