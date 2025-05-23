@@ -1,4 +1,4 @@
-import 'package:fitness/pages/home.dart';
+import 'package:fitness/pages/login_page.dart'; // Add this import
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Poppins'),
-      home: HomePage()
+      home: const LoginPage(), // Change this line to open LoginPage
     );
   }
 }
