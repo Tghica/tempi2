@@ -1,25 +1,55 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:fitness/pages/settings.dart'; // Ensure this points to the correct file
-import 'package:fitness/pages/c++/training_c++.dart'; // Import the Training page
+import 'package:fitness/pages/settings.dart';
+import 'package:fitness/pages/c++/training_c++.dart';
+import 'package:fitness/pages/html/training_html.dart';
 
-class DocumentationCppPage extends StatefulWidget {
-  const DocumentationCppPage({super.key});
+class AskAQuestionPage extends StatefulWidget {
+  final String previousPage; // "cpp" or "html"
+  const AskAQuestionPage({super.key, this.previousPage = "cpp"});
 
   @override
-  _DocumentationCppPageState createState() => _DocumentationCppPageState();
+  _AskAQuestionPageState createState() => _AskAQuestionPageState();
 }
 
-class _DocumentationCppPageState extends State<DocumentationCppPage> {
-  String _selectedOption = 'C++'; // Default to C++
-  int _lastPressedButton = 2; // Default to Documentation button being active
+class _AskAQuestionPageState extends State<AskAQuestionPage> {
+  String _selectedOption = 'C++';
+  int _lastPressedButton = 2;
+
+  final TextEditingController _chatController = TextEditingController();
+  final List<Map<String, String>> _messages = [
+    {
+      "role": "ai",
+      "text": "Hi! I'm your AI assistant. Ask me anything about programming."
+    }
+  ];
+
+  @override
+  void dispose() {
+    _chatController.dispose();
+    super.dispose();
+  }
+
+  void _sendMessage() {
+    final text = _chatController.text.trim();
+    if (text.isEmpty) return;
+    setState(() {
+      _messages.add({"role": "user", "text": text});
+      // Simulate AI response
+      _messages.add({
+        "role": "ai",
+        "text": "AI: Sorry, I can't answer real questions yet, but you asked: \"$text\""
+      });
+      _chatController.clear();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'C++ Documentation',
+          'Ask A Question',
           style: TextStyle(
             color: Colors.black,
             fontSize: 18,
@@ -116,7 +146,7 @@ class _DocumentationCppPageState extends State<DocumentationCppPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const SettingsPage()), // Navigate to SettingsPage
+                MaterialPageRoute(builder: (context) => const SettingsPage()),
               );
             },
           ),
@@ -125,11 +155,55 @@ class _DocumentationCppPageState extends State<DocumentationCppPage> {
       body: Column(
         children: [
           Expanded(
-            child: Center(
-              child: Text(
-                'Main Content Here',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
+            child: ListView.builder(
+              padding: const EdgeInsets.all(16),
+              itemCount: _messages.length,
+              itemBuilder: (context, index) {
+                final msg = _messages[index];
+                final isUser = msg["role"] == "user";
+                return Align(
+                  alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(vertical: 4),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: isUser ? Colors.blue[100] : Colors.purple[100],
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Text(
+                      msg["text"] ?? "",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontStyle: isUser ? FontStyle.normal : FontStyle.italic,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _chatController,
+                    decoration: const InputDecoration(
+                      hintText: "Type your question...",
+                      border: OutlineInputBorder(),
+                      isDense: true,
+                    ),
+                    onSubmitted: (_) => _sendMessage(),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                IconButton(
+                  icon: const Icon(Icons.send, color: Colors.purple),
+                  onPressed: _sendMessage,
+                ),
+              ],
             ),
           ),
           Stack(
@@ -139,25 +213,33 @@ class _DocumentationCppPageState extends State<DocumentationCppPage> {
                   Expanded(
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        fixedSize: const Size.fromHeight(80), // Set button height to 80
+                        fixedSize: const Size.fromHeight(80),
                         shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.zero, // Remove button border radius
+                          borderRadius: BorderRadius.zero,
                         ),
                         backgroundColor: _lastPressedButton == 1
-                            ? Colors.blue // Highlight Practice button
-                            : Colors.white, // Default color
+                            ? Colors.blue
+                            : Colors.white,
                         foregroundColor: _lastPressedButton == 1
-                            ? Colors.white // Text color for highlighted button
-                            : Colors.black, // Default text color
-                        elevation: 0, // Remove button shadow
+                            ? Colors.white
+                            : Colors.black,
+                        elevation: 0,
                       ),
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const TrainingCppPage()), // Navigate to Training page
-                        );
+                        // Go back to the previous training page
+                        if (widget.previousPage == "html") {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const TrainingHtmlPage()),
+                          );
+                        } else {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const TrainingCppPage()),
+                          );
+                        }
                       },
                       child: const Text('Practice'),
                     ),
@@ -165,47 +247,43 @@ class _DocumentationCppPageState extends State<DocumentationCppPage> {
                   Expanded(
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        fixedSize: const Size.fromHeight(80), // Set button height to 80
+                        fixedSize: const Size.fromHeight(80),
                         shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.zero, // Remove button border radius
+                          borderRadius: BorderRadius.zero,
                         ),
-                        backgroundColor: _lastPressedButton == 2
-                            ? Colors.green // Highlight Documentation button
-                            : Colors.white, // Default color
-                        foregroundColor: _lastPressedButton == 2
-                            ? Colors.white // Text color for highlighted button
-                            : Colors.black, // Default text color
-                        elevation: 0, // Remove button shadow
+                        backgroundColor: Colors.purple,
+                        foregroundColor: Colors.white,
+                        elevation: 0,
                       ),
                       onPressed: () {
                         setState(() {
-                          _lastPressedButton = 2; // Track Documentation button as pressed
+                          _lastPressedButton = 2;
                         });
-                        log('Documentation button pressed');
+                        log('Ask A Question button pressed');
                       },
-                      child: const Text('Documentation'),
+                      child: const Text('Ask A Question'),
                     ),
                   ),
                 ],
               ),
               // Vertical line in the middle
               Positioned(
-                left: MediaQuery.of(context).size.width / 2 - 0.5, // Center the line
-                bottom: 0, // Align to the bottom
+                left: MediaQuery.of(context).size.width / 2 - 0.5,
+                bottom: 0,
                 child: Container(
-                  width: 1, // Line width
-                  height: 80, // Line height
-                  color: Colors.black, // Line color
+                  width: 1,
+                  height: 80,
+                  color: Colors.black,
                 ),
               ),
               // Horizontal line dividing buttons from the rest
               Positioned(
-                left: 0, // Start from the left edge
-                right: 0, // Extend to the right edge
-                bottom: 78, // Position 80 pixels from the bottom
+                left: 0,
+                right: 0,
+                bottom: 78,
                 child: Container(
-                  height: 2, // Line height
-                  color: Colors.black, // Line color
+                  height: 2,
+                  color: Colors.black,
                 ),
               ),
             ],

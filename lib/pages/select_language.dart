@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fitness/pages/login_page.dart'; // Add this import
+import 'package:fitness/pages/login_page.dart';
+import 'package:fitness/pages/c++/training_c++.dart'; // Import the C++ training page
+import 'package:fitness/pages/html/training_html.dart';
 
 class SelectLanguagePage extends StatelessWidget {
   const SelectLanguagePage({super.key});
@@ -31,12 +33,18 @@ class SelectLanguagePage extends StatelessWidget {
                 height: 60,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Colors.blue, // C++ button is now blue
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const TrainingCppPage()),
+                    );
+                  },
                   child: const Text(
                     'C++',
                     style: TextStyle(fontSize: 24, color: Colors.white),
@@ -51,12 +59,19 @@ class SelectLanguagePage extends StatelessWidget {
                 height: 60,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
+                    backgroundColor: Colors.green, // HTML button is now green
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const TrainingHtmlPage(),
+                      ),
+                    );
+                  },
                   child: const Text(
                     'HTML',
                     style: TextStyle(fontSize: 24, color: Colors.white),
@@ -71,7 +86,7 @@ class SelectLanguagePage extends StatelessWidget {
                 height: 60,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.yellow,
+                    backgroundColor: Colors.yellow, // Java button is now yellow
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -79,7 +94,7 @@ class SelectLanguagePage extends StatelessWidget {
                   onPressed: () {},
                   child: const Text(
                     'Java',
-                    style: TextStyle(fontSize: 24, color: Colors.white),
+                    style: TextStyle(fontSize: 24, color: Colors.black),
                   ),
                 ),
               ),
