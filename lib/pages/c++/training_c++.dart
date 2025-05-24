@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fitness/pages/settings.dart'; // Ensure this points to the correct file
 import 'package:fitness/pages/c++/documentation_c++.dart'; // Import the Documentation page
 import 'package:fitness/pages/c++/lessons/introduction.dart';
+import 'package:fitness/pages/c++/lessons/lesson_1_introduction.dart';
 // Add more as you create them
 
 class TrainingCppPage extends StatefulWidget {
@@ -32,7 +33,7 @@ class _TrainingCppPageState extends State<TrainingCppPage> {
     // These should be replaced with the actual lesson widgets you create
     // Example: IntroductionLessonPage(), LoopsLessonPage(), etc.
     IntroductionLessonPage(), // for "Introduction"
-    null, // for "Lesson"
+    Lesson1IntroductionPage(), // for "Lesson"
     null, // for "Lesson"
     null, // for "Loops"
     null, // for "Lesson"
