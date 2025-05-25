@@ -1,10 +1,10 @@
 import 'dart:math'; // Import math library for sin function
 import 'package:flutter/material.dart';
-import 'package:fitness/pages/settings.dart'; // Ensure this points to the correct file
-import 'package:fitness/pages/ask_a_question.dart'; // Import the Ask A Question page
-import 'package:fitness/pages/c++/lessons/introduction.dart';
-import 'package:fitness/pages/c++/lessons/lesson_1_introduction.dart';
-import 'package:fitness/pages/html/training_html.dart';
+import 'package:tempi/pages/settings.dart'; // Ensure this points to the correct file
+import 'package:tempi/pages/ask_a_question.dart'; // Import the Ask A Question page
+import 'package:tempi/pages/c++/lessons/introduction.dart';
+import 'package:tempi/pages/c++/lessons/lesson_1_introduction.dart';
+import 'package:tempi/pages/html/training_html.dart';
 // Add more as you create them
 
 class TrainingCppPage extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fitness/pages/login_page.dart';
-import 'package:fitness/pages/c++/training_c++.dart'; // Import the C++ training page
-import 'package:fitness/pages/html/training_html.dart';
+import 'package:tempi/pages/login_page.dart';
+import 'package:tempi/pages/c++/training_c++.dart'; // Import the C++ training page
+import 'package:tempi/pages/html/training_html.dart';
 
 class SelectLanguagePage extends StatelessWidget {
   const SelectLanguagePage({super.key});

@@ -1,8 +1,8 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:fitness/pages/settings.dart';
-import 'package:fitness/pages/c++/training_c++.dart';
-import 'package:fitness/pages/html/training_html.dart';
+import 'package:tempi/pages/settings.dart';
+import 'package:tempi/pages/c++/training_c++.dart';
+import 'package:tempi/pages/html/training_html.dart';
 
 class AskAQuestionPage extends StatefulWidget {
   final String previousPage; // "cpp" or "html"

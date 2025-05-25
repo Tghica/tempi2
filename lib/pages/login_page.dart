@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fitness/pages/select_language.dart'; // Update import
+import 'package:tempi/pages/select_language.dart'; // Update import
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

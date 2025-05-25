@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fitness/pages/login_page.dart'; // Import the login page
+import 'package:tempi/pages/login_page.dart'; // Import the login page
 
 void main() {
   runApp(const MyApp());

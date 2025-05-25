@@ -1,9 +1,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:fitness/pages/settings.dart';
-import 'package:fitness/pages/ask_a_question.dart';
-import 'package:fitness/pages/html/lessons/introduction.dart';
-import 'package:fitness/pages/c++/training_c++.dart';
+import 'package:tempi/pages/settings.dart';
+import 'package:tempi/pages/ask_a_question.dart';
+import 'package:tempi/pages/html/lessons/introduction.dart';
+import 'package:tempi/pages/c++/training_c++.dart';
 
 class TrainingHtmlPage extends StatefulWidget {
   const TrainingHtmlPage({super.key});
