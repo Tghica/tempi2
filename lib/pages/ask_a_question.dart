@@ -1,11 +1,12 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:fitness/pages/settings.dart';
-import 'package:fitness/pages/c++/training_c++.dart';
-import 'package:fitness/pages/html/training_html.dart';
+import 'package:tempi/pages/settings.dart';
+import 'package:tempi/pages/c++/training_c++.dart';
+import 'package:tempi/pages/html/training_html.dart';
+import 'package:tempi/pages/java/training_java.dart'; // <-- Add this import
 
 class AskAQuestionPage extends StatefulWidget {
-  final String previousPage; // "cpp" or "html"
+  final String previousPage; // "cpp", "html", or "java"
   const AskAQuestionPage({super.key, this.previousPage = "cpp"});
 
   @override
@@ -100,6 +101,19 @@ class _AskAQuestionPageState extends State<AskAQuestionPage> {
                         ],
                       ),
                     ),
+                    const PopupMenuItem(
+                      value: 'Java',
+                      child: Row(
+                        children: [
+                          Icon(Icons.coffee, color: Colors.yellow),
+                          SizedBox(width: 10),
+                          Text('Java',
+                              style: TextStyle(
+                                  color: Colors.orange,
+                                  fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                    ),
                   ],
                 );
                 if (selected != null) {
@@ -116,6 +130,8 @@ class _AskAQuestionPageState extends State<AskAQuestionPage> {
                       const Icon(Icons.code, color: Colors.blue)
                     else if (_selectedOption == 'HTML')
                       const Icon(Icons.web, color: Colors.green)
+                    else if (_selectedOption == 'Java')
+                      const Icon(Icons.coffee, color: Colors.yellow)
                     else
                       const Icon(Icons.language, color: Colors.grey),
                     const SizedBox(width: 4),
@@ -127,7 +143,9 @@ class _AskAQuestionPageState extends State<AskAQuestionPage> {
                               ? Colors.blue
                               : _selectedOption == 'HTML'
                                   ? Colors.green
-                                  : Colors.black,
+                                  : _selectedOption == 'Java'
+                                      ? Colors.orange
+                                      : Colors.black,
                           fontWeight: FontWeight.bold,
                         ),
                         overflow: TextOverflow.ellipsis,
@@ -232,6 +250,12 @@ class _AskAQuestionPageState extends State<AskAQuestionPage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const TrainingHtmlPage()),
+                          );
+                        } else if (widget.previousPage == "java") {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const TrainingJavaPage()),
                           );
                         } else {
                           Navigator.pushReplacement(

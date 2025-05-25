@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fitness/pages/login_page.dart'; // Add this import
+import 'package:tempi/pages/login_page.dart'; // Add this import
 
 class AccountPage extends StatelessWidget {
   const AccountPage({super.key});

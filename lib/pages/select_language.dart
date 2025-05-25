@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fitness/pages/login_page.dart';
-import 'package:fitness/pages/c++/training_c++.dart'; // Import the C++ training page
-import 'package:fitness/pages/html/training_html.dart';
+import 'package:tempi/pages/login_page.dart';
+import 'package:tempi/pages/c++/training_c++.dart'; // Import the C++ training page
+import 'package:tempi/pages/html/training_html.dart';
+import 'package:tempi/pages/java/training_java.dart'; // <-- Add this import
 
 class SelectLanguagePage extends StatelessWidget {
   const SelectLanguagePage({super.key});
@@ -91,7 +92,14 @@ class SelectLanguagePage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const TrainingJavaPage(),
+                      ),
+                    );
+                  },
                   child: const Text(
                     'Java',
                     style: TextStyle(fontSize: 24, color: Colors.black),

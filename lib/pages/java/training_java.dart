@@ -2,54 +2,54 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:tempi/pages/settings.dart';
 import 'package:tempi/pages/ask_a_question.dart';
-import 'package:tempi/pages/html/lessons/introduction.dart';
+import 'package:tempi/pages/java/lessons/introduction.dart';
 import 'package:tempi/pages/c++/training_c++.dart';
-import 'package:tempi/pages/java/training_java.dart'; // <-- Add this import
+import 'package:tempi/pages/html/training_html.dart';
 
-class TrainingHtmlPage extends StatefulWidget {
-  const TrainingHtmlPage({super.key});
+class TrainingJavaPage extends StatefulWidget {
+  const TrainingJavaPage({super.key});
 
   @override
-  _TrainingHtmlPageState createState() => _TrainingHtmlPageState();
+  _TrainingJavaPageState createState() => _TrainingJavaPageState();
 }
 
-class _TrainingHtmlPageState extends State<TrainingHtmlPage> {
-  final List<String> htmlLessons = [
+class _TrainingJavaPageState extends State<TrainingJavaPage> {
+  final List<String> javaLessons = [
     "Introduction",
     "Lesson",
     "Lesson",
-    "Tags",
+    "Loops",
     "Lesson",
     "Lesson",
     "Competition",
-    "Forms",
+    "Arrays",
     "Lesson",
     "Lesson",
     "Competition",
   ];
 
-  final List<Widget?> htmlLessonPages = [
-    IntroductionHtmlLessonPage(), // for "Introduction"
+  final List<Widget?> javaLessonPages = [
+    IntroductionJavaLessonPage(), // for "Introduction"
     null, // for "Lesson"
     null, // for "Lesson"
-    null, // for "Tags"
+    null, // for "Loops"
     null, // for "Lesson"
     null, // for "Lesson"
     null, // for "Competition"
-    null, // for "Forms"
+    null, // for "Arrays"
     null, // for "Lesson"
     null, // for "Lesson"
     null, // for "Competition"
   ];
 
-  String _selectedOption = 'HTML';
+  String _selectedOption = 'Java';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'HTML Training',
+          'Java Training',
           style: TextStyle(
             color: Colors.black,
             fontSize: 18,
@@ -145,12 +145,12 @@ class _TrainingHtmlPageState extends State<TrainingHtmlPage> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    if (_selectedOption == 'HTML')
-                      const Icon(Icons.web, color: Colors.green)
+                    if (_selectedOption == 'Java')
+                      const Icon(Icons.coffee, color: Colors.yellow)
                     else if (_selectedOption == 'C++')
                       const Icon(Icons.code, color: Colors.blue)
-                    else if (_selectedOption == 'Java')
-                      const Icon(Icons.coffee, color: Colors.yellow)
+                    else if (_selectedOption == 'HTML')
+                      const Icon(Icons.web, color: Colors.green)
                     else
                       const Icon(Icons.language, color: Colors.grey),
                     const SizedBox(width: 4),
@@ -158,12 +158,12 @@ class _TrainingHtmlPageState extends State<TrainingHtmlPage> {
                       child: Text(
                         _selectedOption,
                         style: TextStyle(
-                          color: _selectedOption == 'HTML'
-                              ? Colors.green
+                          color: _selectedOption == 'Java'
+                              ? Colors.orange
                               : _selectedOption == 'C++'
                                   ? Colors.blue
-                                  : _selectedOption == 'Java'
-                                      ? Colors.orange
+                                  : _selectedOption == 'HTML'
+                                      ? Colors.green
                                       : Colors.black,
                           fontWeight: FontWeight.bold,
                         ),
@@ -196,10 +196,10 @@ class _TrainingHtmlPageState extends State<TrainingHtmlPage> {
               child: Stack(
                 children: [
                   CustomPaint(
-                    size: Size(double.infinity, htmlLessons.length * 90.0),
-                    painter: LinePainter(htmlLessons.length),
+                    size: Size(double.infinity, javaLessons.length * 90.0),
+                    painter: LinePainter(javaLessons.length),
                   ),
-                  ...htmlLessons.asMap().entries.map((entry) {
+                  ...javaLessons.asMap().entries.map((entry) {
                     int index = entry.key;
                     String concept = entry.value;
 
@@ -216,8 +216,8 @@ class _TrainingHtmlPageState extends State<TrainingHtmlPage> {
                       squareColor = Colors.orange;
                       icon = Icons.emoji_events;
                     } else {
-                      squareColor = Colors.green;
-                      icon = Icons.web;
+                      squareColor = Colors.yellow[700]!;
+                      icon = Icons.coffee;
                     }
 
                     return Positioned(
@@ -225,7 +225,7 @@ class _TrainingHtmlPageState extends State<TrainingHtmlPage> {
                       top: y,
                       child: GestureDetector(
                         onTap: () {
-                          final page = htmlLessonPages[index];
+                          final page = javaLessonPages[index];
                           if (page != null) {
                             Navigator.push(
                               context,
@@ -270,8 +270,8 @@ class _TrainingHtmlPageState extends State<TrainingHtmlPage> {
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.zero,
                         ),
-                        backgroundColor: Colors.green,
-                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.yellow[700],
+                        foregroundColor: Colors.black,
                         elevation: 0,
                       ),
                       onPressed: () {},
@@ -293,7 +293,7 @@ class _TrainingHtmlPageState extends State<TrainingHtmlPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const AskAQuestionPage(previousPage: "html")),
+                              builder: (context) => const AskAQuestionPage(previousPage: "java")),
                         );
                       },
                       child: const Text('Ask A Question'),
@@ -335,7 +335,7 @@ class LinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.green
+      ..color = Colors.yellow[700]!
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
 

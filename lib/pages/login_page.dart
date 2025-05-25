@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fitness/pages/select_language.dart'; // Update import
+import 'package:tempi/pages/select_language.dart'; // Update import
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -24,12 +24,13 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    double blueStart = 0.79;
-    double blueEnd = 0.88;
+    double blueStart = 0.705;
+    double blueEnd = 0.795;
 
     return StatefulBuilder(
       builder: (context, setState) {
         return Scaffold(
+          resizeToAvoidBottomInset: false, // Prevents background from moving
           body: GestureDetector(
             behavior: HitTestBehavior.translucent,
             onTapDown: (details) {
@@ -46,12 +47,12 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 SizedBox.expand(
                   child: Image.asset(
-                    'assets/images/login2templatev2.jpg',
+                    'assets/images/login2templatev3.jpg',
                     fit: BoxFit.cover,
                   ),
                 ),
                 Align(
-                  alignment: const Alignment(0, 0.07),
+                  alignment: const Alignment(0, -0.12),
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                     decoration: const BoxDecoration(
@@ -81,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Align(
-                  alignment: const Alignment(0, 0.35),
+                  alignment: const Alignment(0, 0.16),
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                     decoration: const BoxDecoration(

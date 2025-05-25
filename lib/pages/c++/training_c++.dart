@@ -1,10 +1,11 @@
 import 'dart:math'; // Import math library for sin function
 import 'package:flutter/material.dart';
-import 'package:fitness/pages/settings.dart'; // Ensure this points to the correct file
-import 'package:fitness/pages/ask_a_question.dart'; // Import the Ask A Question page
-import 'package:fitness/pages/c++/lessons/introduction.dart';
-import 'package:fitness/pages/c++/lessons/lesson_1_introduction.dart';
-import 'package:fitness/pages/html/training_html.dart';
+import 'package:tempi/pages/settings.dart'; // Ensure this points to the correct file
+import 'package:tempi/pages/ask_a_question.dart'; // Import the Ask A Question page
+import 'package:tempi/pages/c++/lessons/introduction.dart';
+import 'package:tempi/pages/c++/lessons/lesson_1_introduction.dart';
+import 'package:tempi/pages/html/training_html.dart';
+import 'package:tempi/pages/java/training_java.dart';
 // Add more as you create them
 
 class TrainingCppPage extends StatefulWidget {
@@ -113,6 +114,19 @@ class _TrainingCppPageState extends State<TrainingCppPage> {
                         ],
                       ),
                     ),
+                    const PopupMenuItem(
+                      value: 'Java',
+                      child: Row(
+                        children: [
+                          Icon(Icons.coffee, color: Colors.yellow),
+                          SizedBox(width: 10),
+                          Text('Java',
+                              style: TextStyle(
+                                  color: Colors.orange,
+                                  fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                    ),
                   ],
                 );
                 if (selected != null) {
@@ -130,6 +144,13 @@ class _TrainingCppPageState extends State<TrainingCppPage> {
                         builder: (context) => const TrainingCppPage(),
                       ),
                     );
+                  } else if (selected == 'Java') {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const TrainingJavaPage(),
+                      ),
+                    );
                   }
                 }
               },
@@ -142,6 +163,8 @@ class _TrainingCppPageState extends State<TrainingCppPage> {
                       const Icon(Icons.code, color: Colors.blue)
                     else if (_selectedOption == 'HTML')
                       const Icon(Icons.web, color: Colors.green)
+                    else if (_selectedOption == 'Java')
+                      const Icon(Icons.coffee, color: Colors.yellow)
                     else
                       const Icon(Icons.language, color: Colors.grey),
                     const SizedBox(width: 4),
@@ -153,7 +176,9 @@ class _TrainingCppPageState extends State<TrainingCppPage> {
                               ? Colors.blue
                               : _selectedOption == 'HTML'
                                   ? Colors.green
-                                  : Colors.black,
+                                  : _selectedOption == 'Java'
+                                      ? Colors.orange
+                                      : Colors.black,
                           fontWeight: FontWeight.bold,
                         ),
                         overflow: TextOverflow.ellipsis,
