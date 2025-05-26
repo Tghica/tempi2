@@ -244,7 +244,7 @@ class _TrainingJavaPageState extends State<TrainingJavaPage> {
 
                         return Positioned(
                           left: x,
-                          top: y + 5,
+                          top: y + 6,
                           child: GestureDetector(
                             onTap: () {
                               final page = javaLessonPages[index];
