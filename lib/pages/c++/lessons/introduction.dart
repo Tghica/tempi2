@@ -14,7 +14,7 @@ class IntroductionLessonPage extends StatelessWidget {
           style: TextStyle(color: Colors.white), // Title stays white
         ),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Colors.blue, // <-- Changed from Colors.deepPurple to Colors.blue
         iconTheme: const IconThemeData(
           color: Colors.white, // <-- This makes the back button white
         ),
