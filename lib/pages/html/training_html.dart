@@ -104,11 +104,11 @@ class _TrainingHtmlPageState extends State<TrainingHtmlPage> {
                       value: 'Java',
                       child: Row(
                         children: [
-                          Icon(Icons.coffee, color: Colors.yellow),
+                          Icon(Icons.coffee, color: Color(0xFFFFC300)), // <-- Orange
                           SizedBox(width: 10),
                           Text('Java',
                               style: TextStyle(
-                                  color: Colors.orange,
+                                  color: Color(0xFFFFC300), // <-- Orange
                                   fontWeight: FontWeight.bold)),
                         ],
                       ),
@@ -150,7 +150,7 @@ class _TrainingHtmlPageState extends State<TrainingHtmlPage> {
                     else if (_selectedOption == 'C++')
                       const Icon(Icons.code, color: Colors.blue)
                     else if (_selectedOption == 'Java')
-                      const Icon(Icons.coffee, color: Colors.yellow)
+                      const Icon(Icons.coffee, color: Color(0xFFFFC300)) // <-- Orange
                     else
                       const Icon(Icons.language, color: Colors.grey),
                     const SizedBox(width: 4),
@@ -163,7 +163,7 @@ class _TrainingHtmlPageState extends State<TrainingHtmlPage> {
                               : _selectedOption == 'C++'
                                   ? Colors.blue
                                   : _selectedOption == 'Java'
-                                      ? Colors.orange
+                                      ? const Color(0xFFFFC300) // <-- Orange
                                       : Colors.black,
                           fontWeight: FontWeight.bold,
                         ),
@@ -192,71 +192,118 @@ class _TrainingHtmlPageState extends State<TrainingHtmlPage> {
       body: Column(
         children: [
           Expanded(
-            child: SingleChildScrollView(
-              child: Stack(
-                children: [
-                  CustomPaint(
-                    size: Size(double.infinity, htmlLessons.length * 90.0),
-                    painter: LinePainter(htmlLessons.length),
-                  ),
-                  ...htmlLessons.asMap().entries.map((entry) {
-                    int index = entry.key;
-                    String concept = entry.value;
-
-                    const double coefficient = 150;
-                    final double y = index * 90.0;
-                    final double x = sin(y * pi / 180) * coefficient + 150;
-
-                    Color squareColor;
-                    IconData? icon;
-                    if (concept == "Lesson") {
-                      squareColor = Colors.grey;
-                      icon = Icons.book;
-                    } else if (concept == "Competition") {
-                      squareColor = Colors.orange;
-                      icon = Icons.emoji_events;
-                    } else {
-                      squareColor = Colors.green;
-                      icon = Icons.web;
-                    }
-
-                    return Positioned(
-                      left: x,
-                      top: y,
-                      child: GestureDetector(
-                        onTap: () {
-                          final page = htmlLessonPages[index];
-                          if (page != null) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => page),
-                            );
-                          }
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: squareColor,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Icon(icon, color: Colors.white, size: 30),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              concept,
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ],
-                        ),
+            child: Stack(
+              children: [
+                // Faded green and purple gradient background
+                Positioned.fill(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color(0xCC43E97B), // Green, 80% opacity
+                          Color(0xB37B2FF2), // Purple, 70% opacity
+                          Color(0xCC43E97B), // Green, 80% opacity
+                        ],
+                        stops: [0.0, 0.5, 1.0],
                       ),
-                    );
-                  }).toList(),
-                ],
-              ),
+                    ),
+                  ),
+                ),
+                // Main content
+                SingleChildScrollView(
+                  child: Stack(
+                    children: [
+                      CustomPaint(
+                        size: Size(double.infinity, htmlLessons.length * 90.0),
+                        painter: LinePainter(htmlLessons.length),
+                      ),
+                      ...htmlLessons.asMap().entries.map((entry) {
+                        int index = entry.key;
+                        String concept = entry.value;
+
+                        // Calculate position dynamically
+                        const double correction = 20; // Correction to move the sine wave to the right
+                        const double coefficient = 150; // Coefficient for horizontal offset
+                        final double y = index * 90.0; // Vertical offset is always 90
+                        final double x = sin(y * pi / 180) * coefficient + 150 + correction; // Move correction pixels to the right
+
+                        Color squareColor;
+                        IconData? icon;
+                        if (concept == "Lesson") {
+                          squareColor = Colors.grey;
+                          icon = Icons.book;
+                        } else if (concept == "Competition") {
+                          squareColor = Colors.orange;
+                          icon = Icons.emoji_events;
+                        } else {
+                          squareColor = Colors.green;
+                          icon = Icons.web;
+                        }
+
+                        return Positioned(
+                          left: x,
+                          top: y + 5,
+                          child: GestureDetector(
+                            onTap: () {
+                              final page = htmlLessonPages[index];
+                              if (page != null) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => page),
+                                );
+                              }
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                // Icon with white outline
+                                Container(
+                                  width: 50,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: squareColor,
+                                    borderRadius: BorderRadius.circular(8),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.white,
+                                        spreadRadius: 2.5,
+                                        blurRadius: 0,
+                                      ),
+                                    ],
+                                    border: Border.all(
+                                      color: Colors.white,
+                                      width: 2,
+                                    ),
+                                  ),
+                                  child: Icon(icon, color: Colors.white, size: 30),
+                                ),
+                                const SizedBox(height: 8), // Space between square and text
+                                Text(
+                                  concept,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.black26,
+                                        offset: Offset(1, 1),
+                                        blurRadius: 2,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
           Stack(
@@ -335,25 +382,26 @@ class LinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.green
-      ..strokeWidth = 2
+      ..color = const Color.fromARGB(255, 60, 187, 102) // Bright green for high contrast
+      ..strokeWidth = 3
       ..style = PaintingStyle.stroke;
 
-    const double coefficient = 150;
+    const double coefficient = 150; // Coefficient for horizontal offset
     final Path path = Path();
-    const double xSquareOffset = 40;
-    const double ySquareOffset = 30;
+    const double correction = 20; // Correction to move the sine wave to the right
+    const double xSquareOffset = 40; // so it matches horizontally the square
+    const double ySquareOffset = 30; // so it matches vertically the square
     for (int i = 0; i < itemCount * 90 - 90; i++) {
-      double y = 1.0 * i;
-      double x = sin(y * pi / 180) * coefficient + 150;
+      double y = 1.0 * (i + 1); // Vertical offset
+      double x = sin(y * pi / 180) * coefficient + 150 + correction; // Move correction pixels to the right
 
-      y += ySquareOffset;
-      x += xSquareOffset;
+      y += ySquareOffset; // Adjust y position for square
+      x += xSquareOffset; // Adjust x position for square
 
       if (i == 0) {
-        path.moveTo(x, y);
+        path.moveTo(x, y); // Move to the first point
       } else {
-        path.lineTo(x, y);
+        path.lineTo(x, y); // Draw a line to the next point
       }
     }
 

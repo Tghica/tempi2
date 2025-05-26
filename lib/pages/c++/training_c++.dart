@@ -118,11 +118,11 @@ class _TrainingCppPageState extends State<TrainingCppPage> {
                       value: 'Java',
                       child: Row(
                         children: [
-                          Icon(Icons.coffee, color: Colors.yellow),
+                          Icon(Icons.coffee, color: Color(0xFFFFC300)), // <-- Orange
                           SizedBox(width: 10),
                           Text('Java',
                               style: TextStyle(
-                                  color: Colors.orange,
+                                  color: Color(0xFFFFC300), // <-- Orange
                                   fontWeight: FontWeight.bold)),
                         ],
                       ),
@@ -164,7 +164,7 @@ class _TrainingCppPageState extends State<TrainingCppPage> {
                     else if (_selectedOption == 'HTML')
                       const Icon(Icons.web, color: Colors.green)
                     else if (_selectedOption == 'Java')
-                      const Icon(Icons.coffee, color: Colors.yellow)
+                      const Icon(Icons.coffee, color: Color(0xFFFFC300)) // <-- Orange
                     else
                       const Icon(Icons.language, color: Colors.grey),
                     const SizedBox(width: 4),
@@ -177,7 +177,7 @@ class _TrainingCppPageState extends State<TrainingCppPage> {
                               : _selectedOption == 'HTML'
                                   ? Colors.green
                                   : _selectedOption == 'Java'
-                                      ? Colors.orange
+                                      ? const Color(0xFFFFC300) // <-- Orange
                                       : Colors.black,
                           fontWeight: FontWeight.bold,
                         ),
@@ -203,142 +203,189 @@ class _TrainingCppPageState extends State<TrainingCppPage> {
           ),
         ],
       ),
-      body: Column(
+      body: Stack(
         children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Stack(
-                children: [
-                  // Add the CustomPaint widget to draw the line
-                  CustomPaint(
-                    size: Size(double.infinity, cppLessons.length * 90.0),
-                    painter: LinePainter(cppLessons.length),
-                  ),
-                  ...cppLessons.asMap().entries.map((entry) {
-                    int index = entry.key;
-                    String concept = entry.value;
-
-                    // Calculate position dynamically
-                    const double coefficient = 150; // Coefficient for horizontal offset
-                    final double y = index * 90.0; // Vertical offset is always 90
-                    final double x = sin(y * pi / 180) * coefficient + 150; // Horizontal offset
-
-                    Color squareColor;
-                    IconData? icon;
-                    if (concept == "Lesson") {
-                      squareColor = Colors.grey;
-                      icon = Icons.book;
-                    } else if (concept == "Competition") {
-                      squareColor = Colors.orange;
-                      icon = Icons.emoji_events;
-                    } else {
-                      squareColor = Colors.blue;
-                      icon = Icons.code;
-                    }
-
-                    return Positioned(
-                      left: x,
-                      top: y,
-                      child: GestureDetector(
-                        onTap: () {
-                          final page = cppLessonPages[index];
-                          if (page != null) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => page),
-                            );
-                          }
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: squareColor,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Icon(icon, color: Colors.white, size: 30),
-                            ),
-                            const SizedBox(height: 8), // Space between square and text
-                            Text(
-                              concept,
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                ],
+          // Gradient background
+          Positioned.fill(
+            child: Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color(0xFF3A8DFF), // Blue
+                    Color(0xFF7B2FF2), // Purple
+                    Color(0xFF3A8DFF), // Blue
+                  ],
+                  stops: [0.0, 0.5, 1.0],
+                  tileMode: TileMode.mirror,
+                ),
               ),
             ),
           ),
-          // Add buttons at the bottom
-          Stack(
+          // Main content
+          Column(
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: const Size.fromHeight(80),
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.zero,
-                        ),
-                        backgroundColor: Colors.blue,
-                        foregroundColor: Colors.white,
-                        elevation: 0,
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Stack(
+                    children: [
+                      // Add the CustomPaint widget to draw the line
+                      CustomPaint(
+                        size: Size(double.infinity, cppLessons.length * 90.0),
+                        painter: LinePainter(cppLessons.length),
                       ),
-                      onPressed: () {                        
-                      },
-                      child: const Text('Practice'),
+                      ...cppLessons.asMap().entries.map((entry) {
+                        int index = entry.key;
+                        String concept = entry.value;
+
+                        // Calculate position dynamically
+                        const correction = 20; // Correction to move the sine wave to the right
+                        const double coefficient = 150; // Coefficient for horizontal offset
+                        final double y = index * 90.0; // Vertical offset is always 90
+                        final double x = sin(y * pi / 180) * coefficient + 150 + correction; // Move correction pixels to the right
+
+                        Color squareColor;
+                        IconData? icon;
+                        if (concept == "Lesson") {
+                          squareColor = Colors.grey;
+                          icon = Icons.book;
+                        } else if (concept == "Competition") {
+                          squareColor = Colors.orange;
+                          icon = Icons.emoji_events;
+                        } else {
+                          squareColor = Colors.blue;
+                          icon = Icons.code;
+                        }
+
+                        return Positioned(
+                          left: x,
+                          top: y + 5,
+                          child: GestureDetector(
+                            onTap: () {
+                              final page = cppLessonPages[index];
+                              if (page != null) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => page),
+                                );
+                              }
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                // Icon with white outline
+                                Container(
+                                  width: 50,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: squareColor,
+                                    borderRadius: BorderRadius.circular(8),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.white,
+                                        spreadRadius: 2.5,
+                                        blurRadius: 0,
+                                      ),
+                                    ],
+                                    border: Border.all(
+                                      color: Colors.white,
+                                      width: 2,
+                                    ),
+                                  ),
+                                  child: Icon(icon, color: Colors.white, size: 30),
+                                ),
+                                const SizedBox(height: 8), // Space between square and text
+                                Text(
+                                  concept,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.black26,
+                                        offset: Offset(1, 1),
+                                        blurRadius: 2,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ],
+                  ),
+                ),
+              ),
+              // Add buttons at the bottom
+              Stack(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: const Size.fromHeight(80),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.zero,
+                            ),
+                            backgroundColor: Colors.blue,
+                            foregroundColor: Colors.white,
+                            elevation: 0,
+                          ),
+                          onPressed: () {                        
+                          },
+                          child: const Text('Practice'),
+                        ),
+                      ),
+                      Expanded(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: const Size.fromHeight(80),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.zero,
+                            ),
+                            backgroundColor: Colors.white, // White on this page
+                            foregroundColor: Colors.black, // Purple text for visibility
+                            elevation: 0,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const AskAQuestionPage(previousPage: "cpp")),
+                            );
+                          },
+                          child: const Text('Ask A Question'),
+                        ),
+                      ),
+                    ],
+                  ),
+                  // Vertical line in the middle
+                  Positioned(
+                    left: MediaQuery.of(context).size.width / 2 - 0.5, // Center the line
+                    bottom: 0, // Align to the bottom
+                    child: Container(
+                      width: 1, // Line width
+                      height: 80, // Line height
+                      color: Colors.black, // Line color
                     ),
                   ),
-                  Expanded(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: const Size.fromHeight(80),
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.zero,
-                        ),
-                        backgroundColor: Colors.white, // White on this page
-                        foregroundColor: Colors.black, // Purple text for visibility
-                        elevation: 0,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const AskAQuestionPage(previousPage: "cpp")),
-                        );
-                      },
-                      child: const Text('Ask A Question'),
+                  // Horizontal line dividing buttons from the rest
+                  Positioned(
+                    left: 0, // Start from the left edge
+                    right: 0, // Extend to the right edge
+                    bottom: 78, // Position 80 pixels from the bottom
+                    child: Container(
+                      height: 2, // Line height
+                      color: Colors.black, // Line color
                     ),
                   ),
                 ],
-              ),
-              // Vertical line in the middle
-              Positioned(
-                left: MediaQuery.of(context).size.width / 2 - 0.5, // Center the line
-                bottom: 0, // Align to the bottom
-                child: Container(
-                  width: 1, // Line width
-                  height: 80, // Line height
-                  color: Colors.black, // Line color
-                ),
-              ),
-              // Horizontal line dividing buttons from the rest
-              Positioned(
-                left: 0, // Start from the left edge
-                right: 0, // Extend to the right edge
-                bottom: 78, // Position 80 pixels from the bottom
-                child: Container(
-                  height: 2, // Line height
-                  color: Colors.black, // Line color
-                ),
               ),
             ],
           ),
@@ -362,11 +409,12 @@ class LinePainter extends CustomPainter {
 
     const double coefficient = 150; // Coefficient for horizontal offset
     final Path path = Path();
+    const double correction = 20; //Correction to move the sine wave to the right
     const double xSquareOffset = 40; // so it matches horizontally the square
     const double ySquareOffset = 30; // so it matches vertically the square
     for (int i = 0; i < itemCount * 90 - 90; i++) {
-      double y = 1.0 * i; // Vertical offset
-      double x = sin(y * pi / 180) * coefficient + 150; // Horizontal offset
+      double y = 1.0 * (i + 1); // Vertical offset
+      double x = sin(y * pi / 180) * coefficient + 150 + correction; // Move correction pixels to the right
 
       y += ySquareOffset; // Adjust y position for square
       x += xSquareOffset; // Adjust x position for square
